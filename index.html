@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>剧本流跑团 - 原型 Demo</title>
+    <style>
+        /* --- 基础设置：营造纸质书阅读感 --- */
+        :root {
+            --paper-bg: #fdf6e3; /* 米黄色护眼纸张色 */
+            --ink-color: #2c2c2c; /* 深灰墨水色，非纯黑 */
+            --highlight: #b58900; /* 强调色 */
+            --action-color: #555; /* 动作描述颜色 */
+            --sys-color: #888; /* 系统提示颜色 */
+            --font-serif: "Songti SC", "SimSun", "Georgia", serif; /* 宋体/衬线体 */
+            --font-mono: "Courier New", monospace; /* 打字机字体 */
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: var(--font-serif);
+            background-color: #222; /* 浏览器背景深色，突出中间的“纸” */
+            color: var(--ink-color);
+            overflow: hidden;
+        }
+
+        /* --- 布局容器 --- */
+        .app-container {
+            display: flex;
+            height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- 左侧：GM 后台 (暗色调，表示幕后) --- */
+        .gm-sidebar {
+            width: 250px;
+            background-color: #333;
+            color: #ddd;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #444;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .gm-sidebar h3 {
+            color: var(--paper-bg);
+            border-bottom: 1px solid #555;
+            padding-bottom: 10px;
+            margin-top: 0;
+        }
+
+        .scene-list, .npc-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .scene-list li {
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 5px;
+        }
+        
+        .scene-list li:hover { background: #444; }
+        .scene-list li.active { background: var(--highlight); color: #fff; }
+
+        .gm-btn {
+            background: #555;
+            border: none;
+            color: white;
+            padding: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+        }
+
+        /* --- 中间：剧本主界面 (核心展示区) --- */
+        .script-stage {
+            flex: 1;
+            background-color: var(--paper-bg);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            /* 纸张纹理效果（可选） */
+            background-image: linear-gradient(90deg, transparent 95%, rgba(0,0,0,0.02) 95%),
+                              linear-gradient(transparent 95%, rgba(0,0,0,0.02) 95%);
+            background-size: 20px 20px;
+        }
+
+        /* 滚动区域 */
+        .script-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 80px; /* 宽大的页边距 */
+            scroll-behavior: smooth;
+        }
+
+        /* --- 剧本格式样式 (Playwriting Format) --- */
+        
+        /* 场景标题 */
+        .script-scene-heading {
+            text-align: center;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 40px 0 20px 0;
+            border-top: 2px solid var(--ink-color);
+            border-bottom: 1px solid var(--ink-color);
+            padding: 10px 0;
+            font-family: var(--font-mono);
+        }
+
+        /* 每一条发言的容器 */
+        .script-block {
+            margin-bottom: 24px;
+            /* 限制阅读宽度，像书本一样 */
+            max-width: 650px; 
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0; /* 动画初始状态 */
+            animation: fadeIn 0.5s forwards;
+        }
+
+        @keyframes fadeIn { to { opacity: 1; } }
+
+        /* 角色名：居中 */
+        .char-name {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 1.1em;
+            letter-spacing: 1px;
+        }
+
+        /* GM/旁白特殊样式 */
+        .narrator .char-name { display: none; }
+        .narrator .dialogue {
+            text-align: justify;
+            font-style: italic;
+            color: #444;
+            background: rgba(0,0,0,0.03);
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        /* 舞台指示/动作 (括号内或单独成段) */
+        .action {
+            font-style: italic;
+            color: var(--action-color);
+            font-size: 0.95em;
+        }
+
+        /* 台词 */
+        .dialogue {
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        /* 系统/骰子信息 */
+        .system-msg {
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            color: var(--highlight);
+            text-align: center;
+            border: 1px dashed #ccc;
+            padding: 5px;
+            margin: 10px auto;
+            width: fit-content;
+        }
+
+        /* --- 底部：输入区 --- */
+        .input-area {
+            background: #f0e6d2;
+            padding: 15px 40px;
+            border-top: 1px solid #dcc;
+            display: flex;
+            align-items: flex-end;
+            gap: 15px;
+        }
+
+        .avatar-selector {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #555;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .avatar-selector::after {
+            content: "切换";
+            position: absolute;
+            bottom: -20px;
+            left: 10px;
+            font-size: 10px;
+            color: #666;
+        }
+
+        .text-input-wrapper {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .mode-switch {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #888;
+        }
+
+        textarea {
+            width: 100%;
+            border: none;
+            resize: none;
+            outline: none;
+            font-family: var(--font-serif);
+            font-size: 16px;
+            height: 40px;
+            background: transparent;
+        }
+
+        button.send-btn {
+            background: var(--ink-color);
+            color: var(--paper-bg);
+            border: none;
+            padding: 0 25px;
+            height: 50px;
+            font-family: var(--font-serif);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        button.send-btn:hover { background: #000; }
+
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <div class="gm-sidebar">
+        <h3>📖 剧本大纲 (GM)</h3>
+        <p style="font-size: 12px; color: #aaa;">当前战役：克苏鲁的呼唤 - 雾中公馆</p>
+        
+        <ul class="scene-list">
+            <li>序章：暴雨将至</li>
+            <li class="active">第一幕：公馆大厅</li>
+            <li>第二幕：二楼书房</li>
+            <li>幕间：梦境</li>
+        </ul>
+
+        <hr style="border-color: #555; width: 100%;">
+        
+        <h3>🎭 NPC 快速扮演</h3>
+        <button class="gm-btn">👴 管家阿尔弗雷德</button>
+        <button class="gm-btn">👩 疯狂的画家</button>
+        <button class="gm-btn">👻 (环境音效：雷声)</button>
+        
+        <div style="margin-top: auto;">
+            <button class="gm-btn" style="background: #833;">⏸ 暂停并锁定全员</button>
+        </div>
+    </div>
+
+    <div class="script-stage">
+        <div class="script-content" id="scriptContent">
+            
+            <div class="script-scene-heading">
+                [场景一：废弃的公馆大厅 - 深夜]
+            </div>
+
+            <div class="script-block narrator">
+                <div class="dialogue">
+                    暴雨拍打着窗户，发出沉闷的声响。大厅内的烛光摇曳不定，空气中弥漫着一股发霉的纸张味道。你们推开沉重的大门，抖落身上的雨水。
+                </div>
+            </div>
+
+            <div class="script-block">
+                <div class="char-name">调查员 约翰</div>
+                <div class="dialogue">
+                    <span class="action">(摘下湿透的帽子，环顾四周)</span>
+                    这里看起来已经几十年没人住了。但奇怪的是...壁炉里为什么还有余烬？
+                </div>
+            </div>
+
+            <div class="script-block">
+                <div class="char-name">私家侦探 莎拉</div>
+                <div class="dialogue">
+                    大家都小心点。
+                    <span class="action">(她拔出了腰间的手枪，压低声音)</span>
+                    我听到了楼上有脚步声。
+                </div>
+            </div>
+            
+            <div class="system-msg">
+                🎲 莎拉 进行 [聆听] 检定：55 / 60 (成功)
+            </div>
+
+            <div class="script-block narrator">
+                <div class="dialogue">
+                    莎拉说得没错。在雷声的间隙，你们确实听到了二楼走廊传来了拖沓的、沉重的脚步声，就像有什么东西在拖着湿布前行。
+                </div>
+            </div>
+
+        </div>
+
+        <div class="input-area">
+            <div class="avatar-selector" title="当前角色：约翰">
+                </div>
+            <div class="text-input-wrapper">
+                <div class="mode-switch">
+                    <label><input type="radio" name="mode" checked> 台词</label>
+                    <label><input type="radio" name="mode"> 动作描述</label>
+                    <label><input type="radio" name="mode"> 心理活动</label>
+                </div>
+                <textarea placeholder="输入台词... (Enter 发送)" id="inputBox"></textarea>
+            </div>
+            <button class="send-btn" onclick="addMessage()">撰写</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 简单的 JS 模拟发送功能，展示“上屏”效果
+    function addMessage() {
+        const input = document.getElementById('inputBox');
+        const text = input.value;
+        if (!text.trim()) return;
+
+        const container = document.getElementById('scriptContent');
+        
+        // 创建新的剧本块
+        const newBlock = document.createElement('div');
+        newBlock.className = 'script-block';
+        newBlock.innerHTML = `
+            <div class="char-name">调查员 约翰</div>
+            <div class="dialogue">
+                ${text}
+            </div>
+        `;
+
+        container.appendChild(newBlock);
+        
+        // 自动滚动到底部
+        container.scrollTop = container.scrollHeight;
+        input.value = '';
+    }
+
+    // 绑定 Enter 键发送
+    document.getElementById('inputBox').addEventListener('keypress', function (e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            addMessage();
+        }
+    });
+</script>
+
+</body>
+</html>
