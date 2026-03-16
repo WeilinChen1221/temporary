@@ -1,0 +1,149 @@
+## Basic Information
+**Name**: Themistocles Blackstone
+
+**Class**: Paladin (Oath of Vengeance)
+
+**Level**: 4
+
+**Experience Points**: 2900
+
+**Background**: Soldier
+
+**Alignment**: Lawful Good
+
+**Race**: Human Variant
+
+**Age**: 30
+
+## Ability
+**Armor Class**: 16 (Armor) + 1 (Feat) + 1 (Assets)
+
+**Initiative**: -1 (Scores)
+
+**Speed**: 30 ft. (Race)
+
+**Hit Dice**: 4 (Level) * D10 (Class)
+
+**Hit Points**
+	- **Maximum**: 10 (Hit Dice) + D10 (Hit Dice) * (Level - 1) + (+2 (Modifier) * Level) = 41
+	- **Currrent**: 41
+	- **Temporary**: 0
+
+**Death Saves**: [] [] []
+
+## Scores & Modifiers
+**Strength**: 15 + 1 (Race), **Modifier**: +3
+
+**Dexterity**: 8, **Modifier**: -1
+
+**Constitution**: 14, **Modifier**: +2
+
+**Intelligence**: 8, **Modifier**: -1
+
+**Wisdom**: 10, **Modifier**: +0
+
+**Charisma**: 15 + 1 (Race), **Modifier**: +3
+
+## Saving Throws
+**Proficiency Bonus**: +2 (Level)
+
+**Wisdom**: +2 (Proficiency Bonus)
+
+**Charisma**: +3 (Modifier) + 2 (Proficiency Bonus)
+
+## Skills
+**Passive Perception**: 10 + 0 (Modifier) + 2 (Proficiency Bonus)
+**Athletics**: +3 (Modifier) + 2 (Proficiency Bonus)
+**Intimidation**: +3 (Modifier) + 2 (Proficiency Bonus)
+**Persuasion**: +3 (Modifier) + 2 (Proficiency Bonus)
+**Perception**: +0 (Modifier) + 2 (Proficiency Bonus)
+**Religion**: +1 (Class)
+
+## Assets
+- **Currency**
+	- 1906 PP
+	- 6 GP
+- Glaive
+- Double-bladed Glaive
+- 16 AC Chainmail
+- Holy Symbol
+- Explorer's Pack
+- Bow from Meryl
+- +1 AC Ring
+- Misty Step Boots
+- Potions
+    - Speed Potions * 3
+    - Healing Potions * 3
+    - Potion of Cloud Giant Strength * 3
+
+## Other Proficiencies
+**Common**
+
+**Feat**
+	- Polearm Master (Race)
+	- Great Weapon Master (Level)
+
+**Fighting Style**: Defense (Class)
+
+## Actions
+
+**Actions**
+	- Attack
+		- Double-bladed Glaive
+			- Damage
+				- 1 D10 + 3 (Modifiers)
+				- Slashing 
+			- Reach: 10 ft.
+		- Longbow from Meryl
+			- Damage
+				- 1 D10 + 3 (Modifiers)
+				- Piercing 
+			- Reach: 150 ft.
+	- Extra Attack (Feat - Great Weapon Master)
+	- Dash
+	- Disengage
+	- Dodge
+	- Help
+	- Hide
+	- Use an Object
+	- Lay on Hands (Class)
+	- Abjure Enemy (Class - Channel Divinity)
+
+**Bonus Action**
+	- Polearm Butt Strike (Feat)
+		- Double-bladed Glaive
+			- Damage
+				- 1 D10 + 3 (Modifiers)
+				- Slashing 
+			- Reach: 10 ft.
+	- Vow of Enmity (Class - Channel Divinity)
+	- Divine Smite
+	- Excalibur
+
+**Reaction**
+	- Opportunity Attack
+
+**Interaction with Environment**
+
+## Spellcasting
+
+**Spellcasting Ability**: Charisma
+
+**Spell Save DC**: 8 + 3 (Modifier) + 2 (Proficiency Bonus)
+
+**Spell Attack Bonus**: 3 (Modifier) + 2 (Proficiency Bonus)
+
+- **Cantrips**
+- **Spell Level 1**
+	- **Slots**
+		- **Total**: 3
+		- **Expended**: 0
+	- **Spell Names**
+		- Bane (Class)
+		- *Hunter's Mark* (Class)
+		- *Shield of Faith*
+		- *Wrathful Smite*
+		- Cure Wounds
+		- Command
+		- Bless
+		- *Misty Step* (Assets)
