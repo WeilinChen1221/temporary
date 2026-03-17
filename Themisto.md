@@ -45,6 +45,7 @@
 **Charisma**: 15 + 1 (Race), **Modifier**: +3
 
 ## Saving Throws
+
 **Proficiency Bonus**: +3 (Level)
 
 **Wisdom**: +2 (Proficiency Bonus)
