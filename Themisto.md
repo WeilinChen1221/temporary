@@ -3,9 +3,9 @@
 
 **Class**: Paladin (Oath of Vengeance)
 
-**Level**: 4
+**Level**: 5
 
-**Experience Points**: 2900
+**Experience Points**: 2700 + 8400
 
 **Background**: Soldier
 
@@ -45,7 +45,7 @@
 **Charisma**: 15 + 1 (Race), **Modifier**: +3
 
 ## Saving Throws
-**Proficiency Bonus**: +2 (Level)
+**Proficiency Bonus**: +3 (Level)
 
 **Wisdom**: +2 (Proficiency Bonus)
 
@@ -65,12 +65,16 @@
 	- 6 GP
 - Glaive
 - Double-bladed Glaive
-- 16 AC Chainmail
-- Holy Symbol
-- Explorer's Pack
 - Bow from Meryl
+- Holy Symbol
+- 16 AC Chainmail
 - +1 AC Ring
 - Misty Step Boots
+- Explorer's Pack
+- Note from Solan
+- Dagger from Solan
+- Ore from Solan
+- Elvish Alphabet
 - Potions
     - Speed Potions * 3
     - Healing Potions * 3
@@ -100,6 +104,7 @@
 				- Piercing 
 			- Reach: 150 ft.
 	- Extra Attack (Feat - Great Weapon Master)
+	- Extra Attack (Class)
 	- Dash
 	- Disengage
 	- Dodge
@@ -134,9 +139,10 @@
 **Spell Attack Bonus**: 3 (Modifier) + 2 (Proficiency Bonus)
 
 - **Cantrips**
+- **Number of Spells Prepared**: 3 (Modifier) + Level / 2
 - **Spell Level 1**
 	- **Slots**
-		- **Total**: 3
+		- **Total**: 4
 		- **Expended**: 0
 	- **Spell Names**
 		- Bane (Class)
@@ -147,3 +153,21 @@
 		- Command
 		- Bless
 		- *Misty Step* (Assets)
+- **Spell Level 2**
+	- **Slots**
+		- **Total**: 2
+		- **Expended**: 0
+	- **Spell Names**
+		- Hold Person (Class)
+		- Misty Step (Class)
+		- Warding Bond
+		- Find Steed
+		- Aid
+		- Lesser Restoration
+		- Prayer of Healing
+		- *Branding Smite*
+		- *Locate Object*
+		- Zone of Truth
+		- Gentle Repose
+		- Protection from Poison
+		- *Magic Weapon*
