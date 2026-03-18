@@ -25,8 +25,8 @@
 **Hit Dice**: 4 (Level) * D10 (Class)
 
 **Hit Points**
-	- **Maximum**: 10 (Hit Dice) + D10 (Hit Dice) * (Level - 1) + (+2 (Modifier) * Level) = 41
-	- **Currrent**: 41
+	- **Maximum**: 10 (Hit Dice) + D10 (Hit Dice) * (Level - 1) + (+2 (Modifier) * Level) = 48
+	- **Currrent**: 48
 	- **Temporary**: 0
 
 **Death Saves**: [] [] []
@@ -63,10 +63,11 @@
 ## Assets
 - **Currency**
 	- 1906 PP
-	- 6 GP
+	- 0 GP
 - Glaive
 - Double-bladed Glaive
 - Bow from Meryl
+- 40 arrows
 - Holy Symbol
 - 16 AC Chainmail
 - +1 AC Ring
